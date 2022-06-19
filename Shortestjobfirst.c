@@ -5,13 +5,7 @@
     float avg_wt,avg_tat;
     printf("Enter number of process:");
     scanf("%d",&n);
-    printf("Enter Arrival Time:\n");
-    for(i=0;i<n;i++)
-    {
-        printf("p%d:",i+1);
-        scanf("%d",&at[i]);
-        p[i]=i+1;         
-    }
+    
    
       
 
@@ -61,12 +55,12 @@
     avg_wt=(float)total/n;      
     total=0;
   
-   printf("\nProcess\t\tArrival time\tBurst Time\tWaiting Time\tTurnaround Time");
+   printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time");
     for(i=0;i<n;i++)
     {
         tat[i]=bt[i]+wt[i];   
         total+=tat[i];
-       printf("\nP[%d]\t\t%d\t\t%d\t\t%d\t\t%d",p[i],at[i],bt[i],wt[i],tat[i]);
+       printf("\nP[%d]\t\t%d\t\t%d\t\t%d",p[i],bt[i],wt[i],tat[i]);
     }
   
     avg_tat=(float)total/n;    
