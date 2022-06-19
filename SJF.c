@@ -13,26 +13,9 @@
         p[i]=i+1;         
     }
    
-      for(i=0;i<n;i++)
-    {
-        s=i;
-        for(j=i+1;j<n;j++)
-        {
-            if(at[j]<at[s])
-                s=j;
-        }
-  
-        tt=at[i];
-        at[i]=at[s];
-        at[s]=tt;
-  
-        tt=p[i];
-        p[i]=p[s];
-        p[s]=tt;
-        
-    }
-   
-  
+      
+
+
     printf("Enter Burst Time:\n");
     for(i=0;i<n;i++)
     {
