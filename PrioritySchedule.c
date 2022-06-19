@@ -128,7 +128,7 @@
 
     {
 
-        tat[i]=wt[i] - at[i];   
+        tat[i]=wt[i] + bt[j]; 
 
         total+=tat[i];
 
