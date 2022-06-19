@@ -21,7 +21,7 @@
     {
         printf("p%d:",i+1);
         scanf("%d",&bt[i]);
-        p[i]=i+1;         
+        p[i]=i+1;
     }
   
    
