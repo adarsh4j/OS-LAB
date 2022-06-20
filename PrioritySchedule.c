@@ -1,73 +1,71 @@
 #include<stdio.h>
-struct process
-{
-    int WT,AT,BT,TAT,PT;
-};
-
-struct process a[10];
-
+ 
 int main()
 {
-    int n,temp[10],t,count=0,short_p;
-    float total_WT=0,total_TAT=0,Avg_WT,Avg_TAT;
-    printf("Enter the number of the process\n");
+    int bt[20],p[20],wt[20],tat[20],pr[20],i,j,n,total=0,pos,temp,avg_wt,avg_tat;
+    printf("Enter Total Number of Process:");
     scanf("%d",&n);
-    printf("Enter the arrival time , burst time and priority of the process\n");
-    printf("AT BT PT\n");
-    for(int i=0;i<n;i++)
+ 
+    printf("\nEnter Burst Time and Priority\n");
+    for(i=0;i<n;i++)
     {
-        scanf("%d%d%d",&a[i].AT,&a[i].BT,&a[i].PT);
-        
-        // copying the burst time in
-        // a temp array fot futher use
-        temp[i]=a[i].BT;
+        printf("\nP[%d]\n",i+1);
+        printf("Burst Time:");
+        scanf("%d",&bt[i]);
+        printf("Priority:");
+        scanf("%d",&pr[i]);
+        p[i]=i+1;          
     }
-    
-    // we initialize the burst time
-    // of a process with maximum 
-    a[9].PT=10000;
-    
-    for(t=0;count!=n;t++)
+ 
+   
+    for(i=0;i<n;i++)
     {
-        short_p=9;
-        for(int i=0;i<n;i++)
+        pos=i;
+        for(j=i+1;j<n;j++)
         {
-            if(a[short_p].PT>a[i].PT && a[i].AT<=t && a[i].BT>0)
-            {
-                short_p=i;
-            }
+            if(pr[j]<pr[pos])
+                pos=j;
         }
-        
-        a[short_p].BT=a[short_p].BT-1;
-        
-        // if any process is completed
-        if(a[short_p].BT==0)
-        {
-            // one process is completed
-            // so count increases by 1
-            count++;
-            a[short_p].WT=t+1-a[short_p].AT-temp[short_p];
-            a[short_p].TAT=t+1-a[short_p].AT;
-            
-            // total calculation
-            total_WT=total_WT+a[short_p].WT;
-            total_TAT=total_TAT+a[short_p].TAT;
-            
-        }
+ 
+        temp=pr[i];
+        pr[i]=pr[pos];
+        pr[pos]=temp;
+ 
+        temp=bt[i];
+        bt[i]=bt[pos];
+        bt[pos]=temp;
+ 
+        temp=p[i];
+        p[i]=p[pos];
+        p[pos]=temp;
     }
-    
-    Avg_WT=total_WT/n;
-    Avg_TAT=total_TAT/n;
-    
-    // printing of the answer
-    printf("ID WT TAT\n");
-    for(int i=0;i<n;i++)
+ 
+    wt[0]=0;	
+ 
+  
+    for(i=1;i<n;i++)
     {
-        printf("%d %d\t%d\n",i+1,a[i].WT,a[i].TAT);
+        wt[i]=0;
+        for(j=0;j<i;j++)
+            wt[i]+=bt[j];
+ 
+        total+=wt[i];
     }
-    
-    printf("Avg waiting time of the process  is %f\n",Avg_WT);
-    printf("Avg turn around time of the process is %f\n",Avg_TAT);
-    
-    return 0;
+ 
+    avg_wt=total/n;    
+    total=0;
+ 
+    printf("\nProcess\t    Burst Time    \tWaiting Time\tTurnaround Time");
+    for(i=0;i<n;i++)
+    {
+        tat[i]=bt[i]+wt[i];   
+        total+=tat[i];
+        printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p[i],bt[i],wt[i],tat[i]);
+    }
+ 
+    avg_tat=total/n;     
+    printf("\n\nAverage Waiting Time=%d",avg_wt);
+    printf("\nAverage Turnaround Time=%d\n",avg_tat);
+ 
+	return 0;
 }
